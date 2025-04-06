@@ -7,7 +7,12 @@ const AgePensionSearch = () => {
   const [receiptAge, setReceiptAge] = useState('65');
   const [subscriptionData, setSubscriptionData] = useState(null);
   const [receiptData, setReceiptData] = useState(null);
+
   const [loading, setLoading] = useState(false);
+  const [subscriptLoading, setSubscriptLoading] = useState(false);
+  const [receiptLoading, setReceiptLoading] = useState(false);
+
+
   const [error, setError] = useState('');
 
   const handleSubscriptionSearch = async () => {
@@ -21,7 +26,7 @@ const AgePensionSearch = () => {
       return;
     }
     
-    setLoading(true);
+    setSubscriptLoading(true);
     setError('');
     
     try {
@@ -31,7 +36,7 @@ const AgePensionSearch = () => {
       setError('가입 현황 정보 조회 중 오류가 발생했습니다.');
       console.error(error);
     } finally {
-      setLoading(false);
+      setSubscriptLoading(false);
     }
   };
 
@@ -46,7 +51,7 @@ const AgePensionSearch = () => {
       return;
     }
     
-    setLoading(true);
+    setReceiptLoading(true);
     setError('');
     
     try {
@@ -56,7 +61,7 @@ const AgePensionSearch = () => {
       setError('수급 현황 정보 조회 중 오류가 발생했습니다.');
       console.error(error);
     } finally {
-      setLoading(false);
+      setReceiptLoading(false);
     }
   };
 
@@ -84,9 +89,9 @@ const AgePensionSearch = () => {
               <button
                 className="ml-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 onClick={handleSubscriptionSearch}
-                disabled={loading}
+                disabled={subscriptLoading}
               >
-                {loading ? '조회 중...' : '조회하기'}
+                {subscriptLoading ? '조회 중...' : '조회하기'}
               </button>
             </div>
           </div>
@@ -136,9 +141,9 @@ const AgePensionSearch = () => {
               <button
                 className="ml-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 onClick={handleReceiptSearch}
-                disabled={loading}
+                disabled={receiptLoading}
               >
-                {loading ? '조회 중...' : '조회하기'}
+                {receiptLoading ? '조회 중...' : '조회하기'}
               </button>
             </div>
           </div>
