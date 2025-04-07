@@ -29,7 +29,7 @@ exports.getSbscrbSttusInfoSearch = async (req, res) => {
     const sgguCd = districtCode.substring(0, 5);
     const sgguEmdCd = districtCode.substring(0, 8);
     
-    // 국민연금 API 요청 파라미터 설정
+    // 국민연금 API 요청 파라미터
     // const params = {
     //   ServiceKey: SERVICE_KEY,
     //   ldong_addr_mgpl_dg_cd: dgCd,
@@ -68,10 +68,10 @@ exports.getSbscrbSttusInfoSearch = async (req, res) => {
         if (body && body.item) {
           // 필요한 데이터 추출
           const result = {
-            avgAntcPnsAmt: body.item.avgAntcPnsAmt || '데이터 없음',
-            jnngBrkdSgmntPrsnCnt: body.item.jnngBrkdSgmntPrsnCnt || '데이터 없음',
-            rcgnAvgAmt: body.item.rcgnAvgAmt || '데이터 없음',
-            rcgnAvgMcnt: body.item.rcgnAvgMcnt || '데이터 없음'
+            avgAntcPnsAmt: body.item.avgAntcPnsAmt || '데이터 없음',  // 평균예상연금금액
+            jnngBrkdSgmntPrsnCnt: body.item.jnngBrkdSgmntPrsnCnt || '데이터 없음',  //가입내역구간인원수(해당 지역 피보험자 수)
+            rcgnAvgAmt: body.item.rcgnAvgAmt || '데이터 없음',  //평균납부금액
+            rcgnAvgMcnt: body.item.rcgnAvgMcnt || '데이터 없음'  //평균가입기간
           };
           
           return res.json(result);
@@ -140,10 +140,10 @@ exports.getReciptSttusInfoSearch = async (req, res) => {
         if (body && body.item) {
           // 필요한 데이터 추출
           const result = {
-            totPrsnCnt: body.item.totPrsnCnt || '데이터 없음',  //수급자 인원 수
-            avgFnlPrvsAmt: body.item.avgFnlPrvsAmt || '데이터 없음',  //평균 연금액
-            rcgnAavgPrvsPrdMcntvgAmt: body.item.avgPrvsPrdMcnt || '데이터 없음',  //평균 수급기간
-            avgTotPrvsAmt: body.item.avgTotPrvsAmt || '데이터 없음'  //평균 노후복지급여액
+            totPrsnCnt: body.item.totPrsnCnt || '데이터 없음',  //수급대상 인원 수
+            avgFnlPrvsAmt: body.item.avgFnlPrvsAmt || '데이터 없음',  //평균 연금수급액(월)
+            whlPymtCtstPrvsRate: body.item.whlPymtCtstPrvsRate || '데이터 없음',  //평균납부액대비 수급액 비율
+            avgTotPrvsAmt: body.item.avgTotPrvsAmt || '데이터 없음'  //평균  누적연금수급액
           };
           console.log("수급자 result=>>",result);
           return res.json(result);
@@ -235,7 +235,7 @@ exports.getReciptAgeInfoSearch = async (req, res) => {
     // 국민연금 API 요청 파라미터 설정
     const params = {
       ServiceKey: SERVICE_KEY,
-      crtr_age: age
+      crtr_age: age   //기준연령
     };
     
     // API 요청
@@ -266,25 +266,13 @@ exports.getReciptAgeInfoSearch = async (req, res) => {
         if (body && body.item) {
           // 필요한 데이터 추출
           const result = {
-            avgFnlPrvsAmt: body.item.avgFnlPrvsAmt || '데이터 없음',  //평균연금액액
-            avgPrvsPrdMcnt: body.item.avgPrvsPrdMcnt || '데이터 없음',  //평균수급기간간
-            avgTotPrvsAmt: body.item.avgTotPrvsAmt || '데이터 없음',  //평균노후복지급여액액
+            avgFnlPrvsAmt: body.item.avgFnlPrvsAmt || '데이터 없음',  //평균연금액
+            //avgPrvsPrdMcnt: body.item.avgPrvsPrdMcnt || '데이터 없음',  //평균수급기간
+            whlPymtCtstPrvsRate: body.item.whlPymtCtstPrvsRate || '데이터 없음',  //납부한 금액에 비례한 수급액 비율율
           };
           
           return res.json(result);
         } 
-      /*  else if (body && Array.isArray(body.items) && body.items.length > 0) {
-          // items 배열이 있는 경우 (일부 API는 이런 형태로 응답)
-          const item = body.items[0];
-          const result = {
-            avgAntcPnsAmt: item.avgAntcPnsAmt || '데이터 없음',
-            jnngBrkdSgmntPrsnCnt: item.jnngBrkdSgmntPrsnCnt || '데이터 없음',
-            rcgnAvgAmt: item.rcgnAvgAmt || '데이터 없음',
-            rcgnAvgMcnt: item.rcgnAvgMcnt || '데이터 없음'
-          };
-          
-          return res.json(result);
-        } */
         else {
           // body가 비어있거나 data 항목이 없는 경우
           return res.status(404).json({ message: '데이터가 없습니다.' });

@@ -65,6 +65,19 @@ const AgePensionSearch = () => {
     }
   };
 
+  // 4% 인상 금액 계산 함수
+  const CalPensionPay = (money)=>{
+    if (!money) return "0";
+
+    const numMoney = typeof money === 'string' ? parseFloat(money) : money;
+
+    const increasedMoney = numMoney * 1.04;
+    const roundedMoney = Math.round(increasedMoney); // 소수점 반올림하여 정수로 변환
+
+    let localeMoney = roundedMoney.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return localeMoney;
+  }
+
   return (
     <div>
       <h2 className="text-2xl font-semibold mb-4">연령별 연금조회</h2>
@@ -106,7 +119,11 @@ const AgePensionSearch = () => {
                 <tbody>
                   <tr className="border-b">
                     <td className="py-2 font-medium">평균납부금액</td>
-                    <td className="py-2">{subscriptionData.rcgnAvgAmt} 원</td>
+                    <td className="py-2">{(subscriptionData.rcgnAvgAmt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="py-2 font-medium">평균납부금액(4%인상시)</td>
+                    <td className="py-2">{CalPensionPay(subscriptionData.rcgnAvgAmt)} 원</td>
                   </tr>
                   <tr className="border-b">
                     <td className="py-2 font-medium">평균가입기간</td>
@@ -114,7 +131,7 @@ const AgePensionSearch = () => {
                   </tr>
                   <tr className="border-b">
                     <td className="py-2 font-medium">평균연금급여수준</td>
-                    <td className="py-2">{subscriptionData.avgAntcPnsAmt} 원</td>
+                    <td className="py-2">{(subscriptionData.avgAntcPnsAmt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</td>
                   </tr>
                 </tbody>
               </table>
@@ -158,15 +175,11 @@ const AgePensionSearch = () => {
                 <tbody>
                   <tr className="border-b">
                     <td className="py-2 font-medium">평균 연금액</td>
-                    <td className="py-2">{receiptData.avgFnlPrvsAmt} 원</td>
+                    <td className="py-2">{(receiptData.avgFnlPrvsAmt).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 원</td>
                   </tr>
                   <tr className="border-b">
-                    <td className="py-2 font-medium">평균 수급기간</td>
-                    <td className="py-2">{receiptData.avgPrvsPrdMcnt} 개월</td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-2 font-medium">평균 노후복지급여액</td>
-                    <td className="py-2">{receiptData.avgTotPrvsAmt} 원</td>
+                    <td className="py-2 font-medium">평균 납부액대비 수급액 비율</td>
+                    <td className="py-2">{receiptData.whlPymtCtstPrvsRate} %</td>
                   </tr>
                 </tbody>
               </table>

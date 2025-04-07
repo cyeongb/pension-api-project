@@ -11,6 +11,7 @@ const MainPage = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">국민연금 정보 조회 시스템</h1>
+      <div className="text-lg font-bold mb-6 text-center">내가 내는 돈은 내가 알아야 한다..!</div>
       
       {/* 탭 메뉴 */}
       <div className="flex mb-6">
