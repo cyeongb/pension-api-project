@@ -8,8 +8,8 @@ https://www.notion.so/cyeongb/1ceaa4605a0b8079a78ec0a027686b6b?pvs=4
 
 ### Backend
 - Node.js
-- Express.js
-- MariaDB
+- Express.js (api 요청)
+- MariaDB (지역 코드 관리)
 - dotenv (환경 변수 관리)
 - cors (CORS 정책 관리)
 - axios (HTTP 요청)
