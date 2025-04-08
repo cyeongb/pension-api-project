@@ -13,8 +13,6 @@ const api = axios.create({
 
 // 지역별 국민연금 가입 현황 조회
 export const getRegionSubscriptionInfo = async (address, age) => {
-    console.log("지역별 api.js age=>",age);
-    console.log("api.js address=>",address.legal_district_name);
   try {
     const response = await api.get('/region/subscription', {
       params: { address, age }
@@ -29,9 +27,6 @@ export const getRegionSubscriptionInfo = async (address, age) => {
 
 // 지역별 국민연금 수급 현황 조회
 export const getRegionReceiptInfo = async (address, age) => {
-  console.log("getRegionReceiptInfo()");
-    console.log("api.js age=>",age);
-    console.log("api.js address=>",address.legal_district_name);
   try {
     const response = await api.get('/region/receipt', {
       params: { address, age }
@@ -45,7 +40,6 @@ export const getRegionReceiptInfo = async (address, age) => {
 
 // 연령별 국민연금 가입 현황 조회
 export const getAgeSubscriptionInfo = async (age) => {
-    console.log("연령별 가입api.js age=>",age);
   try {
     const response = await api.get('/age/subscription', {
       params: { age }
@@ -59,7 +53,6 @@ export const getAgeSubscriptionInfo = async (age) => {
 
 // 연령별 국민연금 수급 현황 조회
 export const getAgeReceiptInfo = async (age) => {
-    console.log("api.js age=>",age);
     try {
         const response = await api.get('/age/receipt', {
             params: { age }
@@ -74,7 +67,6 @@ export const getAgeReceiptInfo = async (age) => {
 
 // 법정동 코드 검색
 export const searchDistricts = async (name) => {
-  console.log("법정동 코드 검색=> ",name);
   try {
     const response = await api.get('/districts/search', {
       params: { name }

@@ -29,7 +29,7 @@ async function findDistrictNameByCode(districtCode) {
     const query = `
       SELECT legal_district_name 
       FROM district_code_table 
-      WHERE legal_district_code = ? AND is_abolished = 'N'
+      WHERE legal_district_code = ? AND is_abolished = 'Y'
     `;
     const rows = await conn.query(query, [districtCode]);
     return rows.length > 0 ? rows[0].legal_district_name : null;
@@ -49,7 +49,7 @@ async function getAllDistricts() {
     const query = `
       SELECT legal_district_code, legal_district_name 
       FROM district_code_table 
-      WHERE is_abolished = 'N'
+      WHERE is_abolished = 'Y'
       ORDER BY legal_district_code
     `;
     const rows = await conn.query(query);

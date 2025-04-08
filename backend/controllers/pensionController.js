@@ -10,6 +10,7 @@ const NPS_API_BASE_URL = process.env.NPS_API_BASE_URL;
 const SERVICE_KEY = process.env.SERVICE_KEY;
 
 // '4q7O0DXZgc%2FEyIzftHY22RlnOOikH4jaHhwtrZORejvfFiTiCwzuwQF3JlMHkEDGAc25Jyq%2Fg%2BdP9Zpx2dIc8w%3D%3D';
+
 // 지역별 가입 현황 정보 조회
 exports.getSbscrbSttusInfoSearch = async (req, res) => {
   try {
@@ -44,7 +45,7 @@ exports.getSbscrbSttusInfoSearch = async (req, res) => {
     
     // 직접 URL에 모든 파라미터를 포함하는 방식
     const fullUrl = `${baseUrl}?ldong_addr_mgpl_dg_cd=${dgCd}&ldong_addr_mgpl_sggu_cd=${sgguCd}&ldong_addr_mgpl_sggu_emd_cd=${sgguEmdCd}&jnngp_age=${age}&ServiceKey=${SERVICE_KEY}`;
-    console.log("지역별 가입 현황 fullUrl =>",fullUrl);
+    // console.log("지역별 가입 현황 fullUrl =>",fullUrl);
 
     const response = await axios.get(fullUrl, {
       responseType: 'json' 
@@ -115,7 +116,7 @@ exports.getReciptSttusInfoSearch = async (req, res) => {
         
     // 직접 URL에 모든 파라미터를 포함하는 방식
     const fullUrl = `${baseUrl}?ldong_addr_mgpl_dg_cd=${dgCd}&ldong_addr_mgpl_sggu_cd=${sgguCd}&ldong_addr_mgpl_sggu_emd_cd=${sgguEmdCd}&crtr_age=${age}&ServiceKey=${SERVICE_KEY}`;
-    console.log("지역별 수급 현황 fullUrl =>",fullUrl);
+    // console.log("지역별 수급 현황 fullUrl =>",fullUrl);
  
 
     const response = await axios.get(fullUrl, {
@@ -146,7 +147,7 @@ exports.getReciptSttusInfoSearch = async (req, res) => {
             whlPymtCtstPrvsRate: body.item.whlPymtCtstPrvsRate || '데이터 없음',  //평균납부액대비 수급액 비율
             avgTotPrvsAmt: body.item.avgTotPrvsAmt || '데이터 없음'  //평균  누적연금수급액
           };
-          console.log("수급자 result=>>",result);
+         
           return res.json(result);
         } 
         else {
@@ -179,7 +180,7 @@ exports.getSbscrbAgeInfoSearch = async (req, res) => {
     // API 요청
     const baseUrl = `${NPS_API_BASE_URL}/NpsSbscrbInfoProvdService/getSbscrbAgeInfoSearch`;
     const fullUrl = `${baseUrl}?jnngp_age=${age}&ServiceKey=${SERVICE_KEY}`;
-    console.log("연령별 가입 현황 fullUrl =>",fullUrl);
+    // console.log("연령별 가입 현황 fullUrl =>",fullUrl);
 
     const response = await axios.get(fullUrl, {
       responseType: 'json' 
@@ -242,7 +243,7 @@ exports.getReciptAgeInfoSearch = async (req, res) => {
     // API 요청
     const baseUrl = `${NPS_API_BASE_URL}/NpsReciptInfoProvdService/getReciptAgeInfoSearch`;
     const fullUrl = `${baseUrl}?crtr_age=${age}&ServiceKey=${SERVICE_KEY}`;
-    console.log("연령별 수급 현황 fullUrl =>",fullUrl);
+    // console.log("연령별 수급 현황 fullUrl =>",fullUrl);
 
     const response = await axios.get(fullUrl, {
       responseType: 'json' 
@@ -269,7 +270,7 @@ exports.getReciptAgeInfoSearch = async (req, res) => {
           const result = {
             avgFnlPrvsAmt: body.item.avgFnlPrvsAmt || '데이터 없음',  //평균연금액
             //avgPrvsPrdMcnt: body.item.avgPrvsPrdMcnt || '데이터 없음',  //평균수급기간
-            whlPymtCtstPrvsRate: body.item.whlPymtCtstPrvsRate || '데이터 없음',  //납부한 금액에 비례한 수급액 비율율
+            whlPymtCtstPrvsRate: body.item.whlPymtCtstPrvsRate || '데이터 없음',  //납부한 금액에 비례한 수급액 비율
           };
           
           return res.json(result);
@@ -279,7 +280,7 @@ exports.getReciptAgeInfoSearch = async (req, res) => {
           return res.status(404).json({ message: '데이터가 없습니다.' });
         }
       } else {
-        // 응답 구조가 예상과 다른 경우
+        
         console.error('응답 구조가 예상과 다릅니다:', responseData);
         return res.status(500).json({ message: '응답 형식이 올바르지 않습니다.', data: responseData });
       }

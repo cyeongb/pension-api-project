@@ -79,12 +79,12 @@ const RegionPensionSearch = () => {
   const fetchScriptAddressSuggestions = async (query) => {  
     try {
       const result = await searchDistricts(query);
-      console.log("Script address result ==>> ",result);
+
       setScriptSuggestions(result);
       setShowScriptSuggestions(true);
     } catch (error) {
       console.error('주소 검색 오류:', error);
-      setScriptSuggestions([]); //하는이유.?
+      setScriptSuggestions([]);
     }
   };
 
@@ -92,7 +92,7 @@ const RegionPensionSearch = () => {
   const fetchReceiptAddressSuggestions = async (query) => {  
     try {
       const result = await searchDistricts(query);
-      console.log("fetchReceiptAddressSuggestions  result ==>> ",result);
+
       setReceiptSuggestions(result);
       setShowReceiptSuggestions(true);
     } catch (error) {
@@ -121,20 +121,18 @@ const RegionPensionSearch = () => {
     clearTimeout(timeoutRef.current);
   }
 
-  // 10초 타임아웃 설정
+  // 7초 타임아웃 설정
     timeoutRef.current = setTimeout(() => {
-      console.log('타임아웃 동작');
+
       if (subscriptLoading) {
         setError('데이터를 조회할 수 없습니다. 데이터가 부족하거나 없습니다.');
         setSubscriptLoading(false);
-      }else if(receiptLoading){
-        setReceiptLoading(false);
       }
-    }, 10000);
+    }, 7000);
     
     try {
       const data = await getRegionSubscriptionInfo(subscriptAddress, subscriptionAge);
-      console.log('RegionPensionSearch.js  API 응답:', data);
+
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
@@ -160,7 +158,7 @@ const RegionPensionSearch = () => {
 
   //지역별 수급 검색
   const handleReceiptSearch = async () => {
-    console.log("handleReceiptSearch() 호출");
+
     if (!receiptAddress || !receiptAge) {
       setError('주소와 나이를 모두 입력해주세요.');
       return;
@@ -179,20 +177,16 @@ const RegionPensionSearch = () => {
     clearTimeout(timeoutRef.current);
   }
 
-  // 10초 타임아웃 설정
+  // 7초 타임아웃 설정
     timeoutRef.current = setTimeout(() => {
-      console.log('타임아웃 동작');
       if (subscriptLoading) {
         setError('데이터를 조회할 수 없습니다. 데이터가 부족하거나 없습니다.');
         setSubscriptLoading(false);
-      }else if(receiptLoading){
-        setReceiptLoading(false);
       }
-    }, 10000);
+    }, 7000);
     
     try {
       const data = await getRegionReceiptInfo(receiptAddress, receiptAge);
-      console.log("getRegionReceiptInfo data =>",data);
 
       if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -215,14 +209,14 @@ const RegionPensionSearch = () => {
 
   //지역별 가입 검색 주소
   const subscriptSuggestion = (suggestion) => {
-    console.log("subscriptSuggestion() suggestion=> ",suggestion);
+    // console.log("subscriptSuggestion() suggestion=> ",suggestion);
     setSubscriptAddress(suggestion.legal_district_name);
     setShowScriptSuggestions(false);
   };
 
   //지역별 수급 검색 주소
   const receiptSuggestion = (suggestion) => {
-    console.log("receiptSuggestion() suggestion=> ",suggestion);
+    // console.log("receiptSuggestion() suggestion=> ",suggestion);
     setReceiptAddress(suggestion.legal_district_name);
     setShowReceiptSuggestions(false);
   };
