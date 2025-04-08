@@ -7,8 +7,9 @@ const parser = new xml2js.Parser({ explicitArray: false });
 
 // 국민연금 API 기본 URL
 const NPS_API_BASE_URL = process.env.NPS_API_BASE_URL;
-const SERVICE_KEY = '4q7O0DXZgc%2FEyIzftHY22RlnOOikH4jaHhwtrZORejvfFiTiCwzuwQF3JlMHkEDGAc25Jyq%2Fg%2BdP9Zpx2dIc8w%3D%3D';
+const SERVICE_KEY = process.env.SERVICE_KEY;
 
+// '4q7O0DXZgc%2FEyIzftHY22RlnOOikH4jaHhwtrZORejvfFiTiCwzuwQF3JlMHkEDGAc25Jyq%2Fg%2BdP9Zpx2dIc8w%3D%3D';
 // 지역별 가입 현황 정보 조회
 exports.getSbscrbSttusInfoSearch = async (req, res) => {
   try {
