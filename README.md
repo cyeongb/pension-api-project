@@ -2,7 +2,7 @@
 
 이 프로젝트는 국민연금공단 Open API를 활용하여 지역별, 연령별 국민연금 가입 및 수급 현황을 조회할 수 있는 웹 애플리케이션입니다.
 ---
-https://www.notion.so/cyeongb/1ceaa4605a0b8079a78ec0a027686b6b?pvs=4
+[https://www.notion.so/cyeongb/1ceaa4605a0b8079a78ec0a027686b6b?pvs=4](https://www.notion.so/cyeongb/1ceaa4605a0b8079a78ec0a027686b6b?pvs=4)
 
 ## 기술 스택
 
