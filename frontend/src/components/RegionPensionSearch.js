@@ -28,18 +28,7 @@ const RegionPensionSearch = () => {
   const [error, setError] = useState('');
   
   // 검색시 타임아웃 ref
-//  const timeoutRef = useRef(null);
-
-  // 10초 타임아웃 설정
-    // timeoutRef.current = setTimeout(() => {
-    //   console.log('타임아웃 동작');
-    //   if (subscriptLoading) {
-    //     setError('데이터를 조회할 수 없습니다. 시간이 오래 걸립니다.');
-    //     setSubscriptLoading(false);
-    //   }else if(receiptLoading){
-    //     setReceiptLoading(false);
-    //   }
-    // }, 10000);
+  const timeoutRef = useRef(null);
 
   //지역별 가입현황 주소 검색
   useEffect(() => {
@@ -126,11 +115,30 @@ const RegionPensionSearch = () => {
     
     setSubscriptLoading(true);
     setError('');
+
+     // 이전 타임아웃이 있으면 제거
+   if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+  }
+
+  // 10초 타임아웃 설정
+    timeoutRef.current = setTimeout(() => {
+      console.log('타임아웃 동작');
+      if (subscriptLoading) {
+        setError('데이터를 조회할 수 없습니다. 데이터가 부족하거나 없습니다.');
+        setSubscriptLoading(false);
+      }else if(receiptLoading){
+        setReceiptLoading(false);
+      }
+    }, 10000);
     
     try {
       const data = await getRegionSubscriptionInfo(subscriptAddress, subscriptionAge);
       console.log('RegionPensionSearch.js  API 응답:', data);
-    //  clearTimeout(timeoutRef);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
       if(data){
         setSubscriptionData({
           jmgBrkdSgmmPrsnCnt: data.jnngBrkdSgmntPrsnCnt || '데이터 없음',
@@ -138,9 +146,11 @@ const RegionPensionSearch = () => {
           rcgnAvgMcnt: data.rcgnAvgMcnt || '데이터 없음',
           avgAntcPnsAmt: data.avgAntcPnsAmt || '데이터 없음'
         });
+        setError('');
       }
     } catch (error) {
-    //  clearTimeout(timeoutRef);
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
       setError('가입 현황 정보 조회 중 오류가 발생했습니다.');
       console.error(error);
     } finally {
@@ -163,16 +173,39 @@ const RegionPensionSearch = () => {
     
     setReceiptLoading(true);
     setError('');
+
+       // 이전 타임아웃이 있으면 제거
+   if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+  }
+
+  // 10초 타임아웃 설정
+    timeoutRef.current = setTimeout(() => {
+      console.log('타임아웃 동작');
+      if (subscriptLoading) {
+        setError('데이터를 조회할 수 없습니다. 데이터가 부족하거나 없습니다.');
+        setSubscriptLoading(false);
+      }else if(receiptLoading){
+        setReceiptLoading(false);
+      }
+    }, 10000);
     
     try {
       const data = await getRegionReceiptInfo(receiptAddress, receiptAge);
       console.log("getRegionReceiptInfo data =>",data);
-    //  clearTimeout(timeoutRef);
+
+      if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+
+    }
       if(data){
         setReceiptData(data);
+        setError('');
       }
     } catch (error) {
-    //  clearTimeout(timeoutRef);
+      clearTimeout(timeoutRef);
+      timeoutRef.current = null;
       setError('수급 현황 정보 조회 중 오류가 발생했습니다.');
       console.error(error);
     } finally {
@@ -195,13 +228,13 @@ const RegionPensionSearch = () => {
   };
 
    // 컴포넌트가 언마운트될 때 타임아웃 정리
-  //  React.useEffect(() => {
-  //   return () => {
-  //     if (timeoutRef.current) {
-  //       clearTimeout(timeoutRef.current);
-  //     }
-  //   };
-  // }, []);
+   React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   // 4% 인상 금액 계산 함수
   const CalIncreasedPension = (money)=>{

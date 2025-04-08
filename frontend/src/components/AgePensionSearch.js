@@ -16,16 +16,7 @@ const AgePensionSearch = () => {
   const [error, setError] = useState('');
 
    // 검색시 타임아웃 ref
-  //  const timeoutRef = useRef(null);
-
-  //       // 7초 타임아웃 설정
-  //     timeoutRef.current = setTimeout(() => {
-  //       console.log('타임아웃 동작');
-  //       if (subscriptLoading) {
-  //       setError('데이터를 조회할 수 없습니다. 시간이 오래 걸립니다.');
-  //       setSubscriptLoading(false);
-  //       }
-  //     }, 7000);
+    const timeoutRef = useRef(null);
 
    //수급현황 검색
   const handleSubscriptionSearch = async () => {
@@ -34,24 +25,45 @@ const AgePensionSearch = () => {
       return;
     }
     
-    if (subscriptionAge < 18 || subscriptionAge > 75) {
-      setError('가입자 나이는 18세 이상 75세 이하로 입력해주세요.');
+    if (subscriptionAge < 18 || subscriptionAge > 73) {
+      setError('가입자 나이는 18세 이상 73세 이하로 입력해주세요.');
       return;
     }
     
     setSubscriptLoading(true);
     setError('');
-    
+
+    // 이전 타임아웃이 있으면 제거
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // 7초 타임아웃 설정
+    timeoutRef.current = setTimeout(() => {
+      console.log('타임아웃 동작');
+      if (subscriptLoading) {
+      setError('데이터를 조회할 수 없습니다. 데이터가 부족하거나 없습니다.');
+      setSubscriptLoading(false);
+      }
+    }, 7000);
+
     try {
       const data = await getAgeSubscriptionInfo(subscriptionAge);
-     // clearTimeout(timeoutRef);
+      
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+
       if(data){
         setSubscriptionData(data);
+        setError('');
       }else{
         setError('데이터를 불러올 수 없습니다.');
       }
     } catch (error) {
-  //    clearTimeout(timeoutRef);
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
       setError('가입 현황 정보 조회 중 오류가 발생했습니다.');
       console.error(error);
     } finally {
@@ -73,15 +85,38 @@ const AgePensionSearch = () => {
     
     setReceiptLoading(true);
     setError('');
+
+    // 이전 타임아웃이 있으면 제거
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // 7초 타임아웃 설정
+    timeoutRef.current = setTimeout(() => {
+      console.log('타임아웃 동작');
+      if (receiptLoading) {
+      setError('데이터를 조회할 수 없습니다. 데이터가 부족하거나 없습니다.');
+      setReceiptLoading(false);
+      }
+    }, 7000);
     
     try {
       const data = await getAgeReceiptInfo(receiptAge);
-   //   clearTimeout(timeoutRef);
+      
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+
       if(data){
         setReceiptData(data);
+        setError('');
+      }else{
+        setError('데이터를 불러올 수 없습니다.');
       }
     } catch (error) {
-    //  clearTimeout(timeoutRef);
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
       setError('수급 현황 정보 조회 중 오류가 발생했습니다.');
       console.error(error);
     } finally {
@@ -90,13 +125,13 @@ const AgePensionSearch = () => {
   };
 
  // 컴포넌트가 언마운트될 때 타임아웃 정리
-//  React.useEffect(() => {
-//   return () => {
-//     if (timeoutRef.current) {
-//       clearTimeout(timeoutRef.current);
-//     }
-//   };
-// }, []);
+ React.useEffect(() => {
+  return () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+}, []);
 
   // 4% 인상 금액 계산 함수
   const CalIncreasedPension = (money)=>{
@@ -122,7 +157,7 @@ const AgePensionSearch = () => {
         <h3 className="text-xl font-medium mb-3">연령별 가입 현황 조회</h3>
         <div className="flex mb-4">
           <div className="w-full">
-            <label className="block mb-2">나이 (18-75세)</label>
+            <label className="block mb-2">나이 (18-73세)</label>
             <div className="flex">
               <input
                 type="number"
