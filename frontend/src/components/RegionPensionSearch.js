@@ -302,7 +302,7 @@ const RegionPensionSearch = () => {
           </div>
         </div>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-32"
+          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-400 w-32"
           onClick={handleSubscriptionSearch}
           disabled={subscriptLoading}
         >
@@ -386,7 +386,7 @@ const RegionPensionSearch = () => {
           </div>
         </div>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-32"
+          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-400 w-32"
           onClick={handleReceiptSearch}
           disabled={receiptLoading}
         >

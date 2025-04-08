@@ -17,7 +17,7 @@ const MainPage = () => {
       <div className="flex mb-6">
         <button
           className={`px-4 py-2 w-1/2 text-center font-medium ${
-            activeTab === 'region' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+            activeTab === 'region' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('region')}
         >
@@ -25,7 +25,7 @@ const MainPage = () => {
         </button>
         <button
           className={`px-4 py-2 w-1/2 text-center font-medium ${
-            activeTab === 'age' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+            activeTab === 'age' ? 'bg-indigo-600 text-white' : 'bg-gray-200'
           }`}
           onClick={() => setActiveTab('age')}
         >

@@ -168,7 +168,7 @@ const AgePensionSearch = () => {
                 max="75"
               />
               <button
-                className="ml-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-32"
+                className="ml-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-400 w-32"
                 onClick={handleSubscriptionSearch}
                 disabled={subscriptLoading}
               >
@@ -224,7 +224,7 @@ const AgePensionSearch = () => {
                 max="90"
               />
               <button
-                className="ml-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-32"
+                className="ml-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-400 w-32"
                 onClick={handleReceiptSearch}
                 disabled={receiptLoading}
               >
