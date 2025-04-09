@@ -36,3 +36,13 @@
 
 5. 법정동 코드 검색: GET /api/districts/search
    - 파라미터: name
+
+
+  ----
+  <img width="674" alt="pjt3_1" src="https://github.com/user-attachments/assets/e502f30f-ca2d-42e9-a0f2-3cf5ebca2b1d" />
+
+  ----
+
+  <img width="505" alt="pjt3_2" src="https://github.com/user-attachments/assets/4b41452c-8329-444a-9f23-560b953405a1" />
+
+
