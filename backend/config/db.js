@@ -2,7 +2,7 @@
 const mariadb = require('mariadb');
 const dotenv = require('dotenv');
 
-dotenv.config();
+dotenv.config();  //dotenv패키지로 env 파일 로드
 
 const pool = mariadb.createPool({
   host: process.env.DB_HOST,

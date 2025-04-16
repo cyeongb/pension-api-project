@@ -1,4 +1,4 @@
-// routes/api.js
+//API 엔드포인트(HTTP 메서드, url)를 정의
 const express = require('express');
 const router = express.Router();
 const pensionController = require('../controllers/pensionController');
